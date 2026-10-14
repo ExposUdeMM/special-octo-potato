@@ -114,7 +114,7 @@
       font-weight: 600;
     }
 
-    <a href="juego.html" class="btn action">COMENZAR →</a>
+    .btn-action {
       background: var(--blue-bright);
       color: var(--white);
       border: none;
@@ -234,6 +234,9 @@
       align-items: center;
       transition: all 0.2s;
       line-height: 1.3;
+      width: 100%;
+      text-align: left;
+      color: var(--white);
     }
 
     .choice-letter {
@@ -249,9 +252,14 @@
       flex-shrink: 0;
     }
 
-    .choice-box.selected {
-      border-color: var(--cyan);
-      background: rgba(8, 120, 185, 0.4);
+    .choice-box.correct-selected {
+      border-color: var(--success);
+      background: rgba(20, 125, 100, 0.3);
+    }
+
+    .choice-box.wrong-selected {
+      border-color: var(--error);
+      background: rgba(201, 74, 74, 0.3);
     }
 
     .feedback-box {
@@ -321,27 +329,7 @@
   </style>
 </head>
 <body>
-<script>
-function cambiarPantalla(idPantalla) {
-    // 1. Ocultamos todas las pantallas de la página
-    var pantallas = document.querySelectorAll('section, .screen');
-    pantallas.forEach(function(pantalla) {
-        pantalla.style.display = 'none';
-        pantalla.classList.remove('active');
-    });
 
-    // 2. Buscamos la pantalla a la que queremos ir
-    var pantallaDestino = document.getElementById(idPantalla);
-    
-    // 3. Si existe, la hacemos visible
-    if (pantallaDestino) {
-        pantallaDestino.style.display = 'block'; // o 'flex' según tu diseño
-        pantallaDestino.classList.add('active');
-    } else {
-        console.error("No se encontró ninguna pantalla con el id: " + idPantalla);
-    }
-}
-</script>
   <main>
     <!-- PANTALLA 1: BIENVENIDA -->
     <section class="screen active" id="screen-welcome">
@@ -356,9 +344,10 @@ function cambiarPantalla(idPantalla) {
     <!-- PANTALLA 2: LAS 4 MISIONES -->
     <section class="screen" id="screen-missions">
       <button class="btn-back" onclick="cambiarPantalla('screen-welcome')">←</button>
-      <h2 class="screen-title">Elegí tu misión</h2>
+      <h2 class="screen-title">Tu misión</h2>
       <p class="screen-desc">¿Qué tipo de desafío te gustaría resolver hoy?</p>
       
+      <!-- MISIÓN 1 -->
       <div class="mission-card" onclick="cambiarPantalla('screen-m1-q1')">
         <div class="mission-info">
           <span class="mission-tag">Misión 1</span>
@@ -368,6 +357,7 @@ function cambiarPantalla(idPantalla) {
         <div class="mission-arrow">→</div>
       </div>
 
+      <!-- MISIÓN 2 -->
       <div class="mission-card" onclick="alert('Próximamente: Decisión estratégica')">
         <div class="mission-info">
           <span class="mission-tag">Misión 2</span>
@@ -376,38 +366,34 @@ function cambiarPantalla(idPantalla) {
         </div>
         <div class="mission-arrow">→</div>
       </div>
-
-      <div class="mission-card" onclick="alert('Próximamente: El caso de las pistas')">
-        <div class="mission-info">
-          <span class="mission-tag">Misión 3</span>
-          <div class="mission-name">El caso de las pistas</div>
-          <div class="mission-desc">Observación, evidencia y razonamiento.</div>
-        </div>
-        <div class="mission-arrow">→</div>
-      </div>
-
-      <div class="mission-card" onclick="alert('Próximamente: Conectar personas')">
-        <div class="mission-info">
-          <span class="mission-tag">Misión 4</span>
-          <div class="mission-name">Conectar personas</div>
-          <div class="mission-desc">Escucha, comunicación y comprensión humana.</div>
-        </div>
-        <div class="mission-arrow">→</div>
-      </div>
-      <p class="footer-note">Experiencia demostrativa - UdeMM.</p>
     </section>
 
-    <!-- PANTALLA 3: PREGUNTA -->
+    <!-- PANTALLA 3: MISIÓN 1 - TRIVIA 1 -->
     <section class="screen" id="screen-m1-q1">
+      <button class="btn-back" onclick="cambiarPantalla('screen-missions')">← Misiones</button>
+      
       <div class="mission-header">
-        <span>Misión 1 - Operación en marcha</span>
-        <span>1/1 ⏱️ 01:24</span>
+        <span>MISIÓN 1: OPERACIÓN EN MARCHA</span>
+        <span>Pregunta 1 de 1</span>
       </div>
+
       <div class="scenario-card">
-        Un buque con destino internacional llega al puerto y la terminal debe coordinar la descarga, el control aduanero y el traslado a depósito. El tiempo es limitado y hay varios equipos trabajando en paralelo.
+        <strong>Contexto:</strong> Una importante empresa de transporte marítimo necesita coordinar el ingreso y la distribución eficiente de contenedores en el puerto sin generar demoras en la aduana ni costos extras de almacenamiento.
       </div>
-      <div class="question-text">
-        ¿Cuál de estas acciones creés que generaría el menor impacto en los tiempos de espera y mayores costos?
-      </div>
+
+      <p class="question-text">¿Cuál es el factor clave para optimizar esta cadena de distribución?</p>
+
       <div class="choices-container">
-        <div class="choice-box" onclick="verificarRespuesta(this, 'wrong')">
+        <!-- OPCIÓN A (Incorrecta) -->
+        <button class="choice-box" onclick="evaluarRespuesta(this, false)">
+          <div class="choice-letter">A</div>
+          <div>Aumentar el tamaño de los depósitos portuarios sin planificación previa.</div>
+        </button>
+
+        <!-- OPCIÓN B (Correcta) -->
+        <button class="choice-box" onclick="evaluarRespuesta(this, true)">
+          <div class="choice-letter">B</div>
+          <div>Planificar de forma sincronizada el transporte intermodal y los tiempos de aduana.</div>
+        </button>
+
+        <!-- OPCIÓN C (Incorrecta) -->
