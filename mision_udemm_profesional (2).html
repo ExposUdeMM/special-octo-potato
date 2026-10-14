@@ -16,6 +16,7 @@
       --white: #ffffff;
       --text-muted: #83a4c4;
       --success: #147d64;
+      --error: #c94a4a;
     }
 
     * {
@@ -104,7 +105,18 @@
       line-height: 1.4;
     }
 
-    /* Botón Principal */
+    /* Barra Superior de Misión (Progreso y Tiempo) */
+    .mission-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 15px;
+      font-weight: 600;
+    }
+
+    /* Botones */
     .btn-action {
       background: var(--blue-bright);
       color: var(--white);
@@ -128,7 +140,6 @@
       background: #065e92;
     }
 
-    /* Botón Volver */
     .btn-back {
       background: none;
       border: none;
@@ -139,7 +150,7 @@
       margin-bottom: 10px;
     }
 
-    /* Tarjetas de Misiones (Estilo Gráfico Mockup) */
+    /* Tarjetas de Misiones */
     .mission-card {
       background: rgba(11, 56, 100, 0.4);
       border: 1px solid rgba(66, 198, 217, 0.15);
@@ -190,13 +201,93 @@
       font-size: 1.1rem;
     }
 
+    /* Estilos para el Escenario y Preguntas */
+    .scenario-card {
+      background: rgba(7, 40, 72, 0.6);
+      border-left: 4px solid var(--cyan);
+      padding: 15px;
+      border-radius: 4px 14px 14px 4px;
+      font-size: 0.95rem;
+      line-height: 1.5;
+      margin-bottom: 20px;
+    }
+
+    .question-text {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 15px;
+      line-height: 1.4;
+    }
+
+    /* Contenedores de Opciones Múltiples */
+    .choices-container {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .choice-box {
+      background: var(--navy-card);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 14px;
+      padding: 14px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      transition: all 0.2s;
+      line-height: 1.3;
+    }
+
+    .choice-letter {
+      background: rgba(255, 255, 255, 0.1);
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.85rem;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .choice-box.selected {
+      border-color: var(--cyan);
+      background: rgba(8, 120, 185, 0.4);
+    }
+
+    /* Feedback de Correcto / Incorrecto */
+    .feedback-box {
+      display: none;
+      padding: 14px;
+      border-radius: 12px;
+      font-size: 0.9rem;
+      line-height: 1.4;
+      margin-bottom: 20px;
+    }
+
+    .feedback-box.correct {
+      background: rgba(20, 125, 100, 0.2);
+      border: 1px solid var(--success);
+      color: #9bf0db;
+    }
+
+    .feedback-box.wrong {
+      background: rgba(201, 74, 74, 0.2);
+      border: 1px solid var(--error);
+      color: #ffb3b3;
+    }
+
     .footer-note {
       font-size: 0.8rem;
       color: var(--text-muted);
       text-align: center;
       margin-top: auto;
       padding-top: 20px;
-      line-height: 1.4;
     }
   </style>
 </head>
@@ -212,65 +303,79 @@
       <h1 class="title-main">MISIÓN<br><span>UdEMM</span></h1>
       <p class="subtitle-main">Elegí tu próximo desafío. Resolvé, aprendé, descubrí qué carreras se conectan con vos.</p>
       
-      <!-- Ahora este botón llama a la función cambiarPantalla -->
       <button class="btn-action" onclick="cambiarPantalla('screen-missions')">
         COMENZAR →
       </button>
     </section>
 
-    <!-- PANTALLA 2: SELECCIÓN DE MISIÓN -->
+    <!-- PANTALLA 2: SELECCIÓN DE LAS 4 MISIONES -->
     <section class="screen" id="screen-missions">
       <button class="btn-back" onclick="cambiarPantalla('screen-welcome')">←</button>
       
-      <h2 class="screen-title">Seleccioná tu misión</h2>
-      <p class="screen-desc">Cada misión te acerca a un mundo de posibilidades. Elegí la que más te impulse.</p>
+      <h2 class="screen-title">Elegí tu misión</h2>
+      <p class="screen-desc">¿Qué tipo de desafío te gustaría resolver hoy?</p>
       
       <!-- Misión 1 -->
-      <div class="mission-card" onclick="alert('Iniciando Misión 1: Operaciones Portuarias')">
+      <div class="mission-card" onclick="cambiarPantalla('screen-m1-q1')">
         <div class="mission-info">
           <span class="mission-tag">Misión 1</span>
-          <div class="mission-name">Operaciones Portuarias</div>
-          <div class="mission-desc">Organizá una operación en el puerto y tomá decisiones en tiempo real.</div>
+          <div class="mission-name">Operación en marcha</div>
+          <div class="mission-desc">Organización y logística.</div>
         </div>
         <div class="mission-arrow">→</div>
       </div>
 
       <!-- Misión 2 -->
-      <div class="mission-card" onclick="alert('Iniciando Misión 2: Gestión y Negocios')">
+      <div class="mission-card" onclick="alert('Próximamente: Decisión estratégica')">
         <div class="mission-info">
           <span class="mission-tag">Misión 2</span>
-          <div class="mission-name">Gestión y Negocios</div>
-          <div class="mission-desc">Analizá una situación empresarial y elegí la mejor estrategia.</div>
+          <div class="mission-name">Decisión estratégica</div>
+          <div class="mission-desc">Análisis y gestión.</div>
         </div>
         <div class="mission-arrow">→</div>
       </div>
 
       <!-- Misión 3 -->
-      <div class="mission-card" onclick="alert('Iniciando Misión 3: Investigación y Seguridad')">
+      <div class="mission-card" onclick="alert('Próximamente: El caso de las pistas')">
         <div class="mission-info">
           <span class="mission-tag">Misión 3</span>
-          <div class="mission-name">Investigación y Seguridad</div>
-          <div class="mission-desc">Detectá lo que no encaja y resolvé el caso.</div>
+          <div class="mission-name">El caso de las pistas</div>
+          <div class="mission-desc">Observación, evidencia y razonamiento.</div>
         </div>
         <div class="mission-arrow">→</div>
       </div>
 
-      <p class="footer-note">Completá todas las misiones o elegí la que más te interese. ¡Tenés 3 minutos por misión!</p>
+      <!-- Misión 4 -->
+      <div class="mission-card" onclick="alert('Próximamente: Conectar personas')">
+        <div class="mission-info">
+          <span class="mission-tag">Misión 4</span>
+          <div class="mission-name">Conectar personas</div>
+          <div class="mission-desc">Escucha, comunicación y comprensión humana.</div>
+        </div>
+        <div class="mission-arrow">→</div>
+      </div>
+
+      <p class="footer-note">Experiencia demostrativa - UdeMM.</p>
     </section>
-  </main>
 
-  <!-- LÓGICA EN JAVASCRIPT -->
-  <script>
-    function cambiarPantalla(pantallaId) {
-      // 1. Ocultar todas las pantallas borrándoles la clase 'active'
-      document.querySelectorAll('.screen').forEach(pantalla => {
-        pantalla.classList.remove('active');
-      });
-      
-      // 2. Mostrar la pantalla seleccionada agregándole 'active'
-      document.getElementById(pantallaId).classList.add('active');
-    }
-  </script>
+    <!-- PANTALLA 3: MISIÓN 1 - PREGUNTA 1 -->
+    <section class="screen" id="screen-m1-q1">
+      <div class="mission-header">
+        <span>Misión 1 - Operaciones Portuarias</span>
+        <span>2/5 ⏱️ 01:24</span>
+      </div>
 
-</body>
-</html>
+      <div class="scenario-card">
+        Un buque con destino internacional llega al puerto y la terminal debe coordinar la descarga, el control aduanero y el traslado a depósito. El tiempo es limitado y hay varios equipos trabajando en paralelo.
+      </div>
+
+      <div class="question-text">
+        ¿Cuál de estas acciones creés que generaría el menor impacto en los tiempos de espera y mayores costos?
+      </div>
+
+      <div class="choices-container">
+        <div class="choice-box" onclick="verificarRespuesta(this, 'wrong', 'feedback-m1-q1')">
+          <div class="choice-letter">A</div>
+          <div>Priorizar la descarga de contenedores refrigerados.</div>
+        </div>
+        <div class="choice-box" onclick="verificarRespuesta(this, 'correct', 'feedback-m1-q1')">
