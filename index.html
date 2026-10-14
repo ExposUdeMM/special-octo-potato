@@ -130,7 +130,7 @@
       width: 100%;
       text-transform: uppercase;
       letter-spacing: 0.05em;
-      margin-top: auto;
+      margin-top: 15px;
     }
 
     .btn-action:active {
@@ -289,34 +289,105 @@
       font-size: 3.5rem;
       color: #9bf0db;
       text-align: center;
-      margin: 20px 0;
-    }
-    
-    .careers-list {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      margin-top: 15px;
+      margin: 15px 0;
     }
 
-    .career-item {
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.1);
+    /* ESTILOS DE TUS CAPTURAS (TABLAS, FACULTADES Y FORMULARIO) */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+    .skill-block {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
       padding: 12px;
-      border-radius: 12px;
+      border-radius: 10px;
     }
-
-    .career-title {
-      font-size: 0.95rem;
+    .skill-title {
+      font-size: 0.9rem;
       font-weight: 700;
-      color: var(--cyan);
-      margin-bottom: 3px;
+      color: var(--white);
+      margin-bottom: 4px;
     }
-
-    .career-desc {
+    .skill-sub {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+    .academic-route {
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      padding: 12px 0;
+    }
+    .route-number {
+      color: var(--gold);
+      font-weight: 800;
+      font-size: 1.1rem;
+      margin-right: 5px;
+    }
+    .route-faculty {
+      font-size: 0.75rem;
+      color: var(--cyan);
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+    .route-name {
+      font-size: 1rem;
+      font-weight: 700;
+      margin: 2px 0;
+    }
+    .route-desc {
       font-size: 0.8rem;
       color: var(--text-muted);
+    }
+    .form-group {
+      margin-bottom: 12px;
+    }
+    .form-group label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 700;
+      margin-bottom: 5px;
+      color: var(--white);
+    }
+    .form-control {
+      width: 100%;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 8px;
+      padding: 10px;
+      color: var(--white);
+      font-family: inherit;
+    }
+    .form-checkbox {
+      display: flex;
+      gap: 8px;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin: 15px 0;
       line-height: 1.3;
+    }
+    .faculties-container {
+      margin-top: 25px;
+      background: rgba(7, 40, 72, 0.3);
+      padding: 15px;
+      border-radius: 12px;
+    }
+    .faculty-section {
+      margin-bottom: 15px;
+    }
+    .faculty-title {
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--cyan);
+      border-bottom: 1px solid rgba(66, 198, 217, 0.3);
+      padding-bottom: 3px;
+      margin-bottom: 6px;
+    }
+    .faculty-item {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      padding: 2px 0;
     }
   </style>
 </head>
@@ -339,7 +410,6 @@
       <h2 class="screen-title">Tu misión</h2>
       <p class="screen-desc">¿Qué tipo de desafío te gustaría resolver hoy?</p>
       
-      <!-- MISIÓN 1 -->
       <div class="mission-card" onclick="iniciarMision(1)">
         <div class="mission-info">
           <span class="mission-tag">Misión 1</span>
@@ -349,59 +419,7 @@
         <div class="mission-arrow">→</div>
       </div>
 
-      <!-- MISIÓN 2 -->
       <div class="mission-card" onclick="iniciarMision(2)">
         <div class="mission-info">
           <span class="mission-tag">Misión 2</span>
           <div class="mission-name">Decisión estratégica</div>
-          <div class="mission-desc">Análisis y gestión empresarial.</div>
-        </div>
-        <div class="mission-arrow">→</div>
-      </div>
-
-      <!-- MISIÓN 3 -->
-      <div class="mission-card" onclick="iniciarMision(3)">
-        <div class="mission-info">
-          <span class="mission-tag">Misión 3</span>
-          <div class="mission-name">Conexión global</div>
-          <div class="mission-desc">Comercio internacional y aduanas.</div>
-        </div>
-        <div class="mission-arrow">→</div>
-      </div>
-
-      <!-- MISIÓN 4 -->
-      <div class="mission-card" onclick="iniciarMision(4)">
-        <div class="mission-info">
-          <span class="mission-tag">Misión 4</span>
-          <div class="mission-name">Ingeniería del futuro</div>
-          <div class="mission-desc">Sistemas y desarrollo tecnológico.</div>
-        </div>
-        <div class="mission-arrow">→</div>
-      </div>
-    </section>
-
-    <!-- PANTALLA 3: JUEGO DE TRIVIA DINÁMICO -->
-    <section class="screen" id="screen-quiz">
-      <button class="btn-back" onclick="cambiarPantalla('screen-missions')">← Abandonar</button>
-      
-      <div class="mission-header">
-        <span id="quiz-mission-title">MISIÓN</span>
-        <span id="quiz-progress">Pregunta 1 de 3</span>
-      </div>
-
-      <div class="scenario-card" id="quiz-context">
-        <!-- Dinámico -->
-      </div>
-
-      <p class="question-text" id="quiz-question">
-        <!-- Dinámico -->
-      </p>
-
-      <div class="choices-container" id="quiz-options">
-        <!-- Dinámico -->
-      </div>
-
-      <div id="feedback-correct" class="feedback-box correct">
-        <!-- Dinámico -->
-      </div>
-      
