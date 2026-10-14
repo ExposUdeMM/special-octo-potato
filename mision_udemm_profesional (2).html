@@ -105,7 +105,7 @@
       line-height: 1.4;
     }
 
-    /* Barra Superior de Misión (Progreso y Tiempo) */
+    /* Barra Superior de Misión */
     .mission-header {
       display: flex;
       justify-content: space-between;
@@ -201,7 +201,7 @@
       font-size: 1.1rem;
     }
 
-    /* Estilos para el Escenario y Preguntas */
+    /* Escenario y Preguntas */
     .scenario-card {
       background: rgba(7, 40, 72, 0.6);
       border-left: 4px solid var(--cyan);
@@ -219,12 +219,12 @@
       line-height: 1.4;
     }
 
-    /* Contenedores de Opciones Múltiples */
+    /* Opciones */
     .choices-container {
       display: flex;
       flex-direction: column;
       gap: 10px;
-      margin-bottom: 20px;
+      margin-bottom: 15px;
     }
 
     .choice-box {
@@ -260,7 +260,7 @@
       background: rgba(8, 120, 185, 0.4);
     }
 
-    /* Feedback de Correcto / Incorrecto */
+    /* Caja de Feedback */
     .feedback-box {
       display: none;
       padding: 14px;
@@ -271,15 +271,52 @@
     }
 
     .feedback-box.correct {
+      display: block;
       background: rgba(20, 125, 100, 0.2);
       border: 1px solid var(--success);
       color: #9bf0db;
     }
 
     .feedback-box.wrong {
+      display: block;
       background: rgba(201, 74, 74, 0.2);
       border: 1px solid var(--error);
       color: #ffb3b3;
+    }
+
+    /* Estilos Pantalla de Éxito */
+    .success-icon {
+      font-size: 3.5rem;
+      color: #9bf0db;
+      text-align: center;
+      margin: 20px 0;
+    }
+    
+    .careers-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 15px;
+    }
+
+    .career-item {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 12px;
+      border-radius: 12px;
+    }
+
+    .career-title {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--cyan);
+      margin-bottom: 3px;
+    }
+
+    .career-desc {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      line-height: 1.3;
     }
 
     .footer-note {
@@ -361,21 +398,8 @@
     <!-- PANTALLA 3: MISIÓN 1 - PREGUNTA 1 -->
     <section class="screen" id="screen-m1-q1">
       <div class="mission-header">
-        <span>Misión 1 - Operaciones Portuarias</span>
-        <span>2/5 ⏱️ 01:24</span>
+        <span>Misión 1 - Operación en marcha</span>
+        <span>1/1 ⏱️ 01:24</span>
       </div>
 
       <div class="scenario-card">
-        Un buque con destino internacional llega al puerto y la terminal debe coordinar la descarga, el control aduanero y el traslado a depósito. El tiempo es limitado y hay varios equipos trabajando en paralelo.
-      </div>
-
-      <div class="question-text">
-        ¿Cuál de estas acciones creés que generaría el menor impacto en los tiempos de espera y mayores costos?
-      </div>
-
-      <div class="choices-container">
-        <div class="choice-box" onclick="verificarRespuesta(this, 'wrong', 'feedback-m1-q1')">
-          <div class="choice-letter">A</div>
-          <div>Priorizar la descarga de contenedores refrigerados.</div>
-        </div>
-        <div class="choice-box" onclick="verificarRespuesta(this, 'correct', 'feedback-m1-q1')">
