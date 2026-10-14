@@ -103,14 +103,15 @@ input,select{border-radius:3px;border:1px solid #cbd6dd;padding:14px}label{font-
  <div class="card"><h2>Lo que pusiste en juego</h2><div class="result-grid"><div class="result-tile"><strong id="strength1">Pensamiento crítico</strong><span>Habilidad cognitiva superior</span></div><div class="result-tile"><strong id="strength2">Comunicación</strong><span>Habilidad general</span></div><div class="result-tile"><strong id="strength3">Organización y precisión</strong><span>Destreza aplicada</span></div></div><p class="muted">Estas tres dimensiones son una devolución lúdica basada en la misión realizada; no constituyen una evaluación psicométrica ni un diagnóstico vocacional.</p></div>
  <div class="card"><h2>Rutas académicas que podrías explorar</h2><p class="muted">Según la misión que elegiste y las decisiones que tomaste, estas carreras de UdeMM podrían interesarte. Es una sugerencia para explorar, no un diagnóstico vocacional.</p><div id="careerMatches"></div><a class="text-link" href="https://udemm.edu.ar/carreras/" target="_blank" rel="noopener">Ver información oficial de las carreras ↗</a></div>
  <div class="card catalog-card"><div class="catalog-heading"><div><div class="eyebrow">OFERTA ACADÉMICA</div><h2>Las cuatro facultades. Más caminos para elegir.</h2></div><p class="muted">Explorá el catálogo completo publicado en el sitio de UdeMM.</p></div><div id="careerCatalog" class="career-catalog"></div><a class="btn secondary" style="display:block;text-align:center;text-decoration:none;margin-top:18px" href="https://udemm.edu.ar/carreras/" target="_blank" rel="noopener">Consultar carreras en el sitio de UdeMM ↗</a></div>
- <div class="card"><h2>¿Querés conocer carreras de UdeMM?</h2><p class="muted">Dejanos tus datos en el formulario institucional o conversá con el equipo del stand para recibir información sobre las carreras que te interesan.</p>
+ <div class="card"><h2>¿Querés recibir información sobre las carreras de UdeMM?</h2><p class="muted">Dejanos tus datos y el equipo de la Universidad podrá contactarte para brindarte información sobre la carrera que te interesa.</p>
  <form id="leadForm" onsubmit="submitLead(event)">
- <label for="name">Nombre (opcional)</label><input id="name" name="name" autocomplete="given-name" placeholder="¿Cómo te llamás?">
- <label for="interest">¿Qué área te gustaría explorar?</label><select id="interest" name="interest"><option value="">Elegí una carrera de las cuatro facultades</option></select>
- <label for="contact">Email o teléfono (opcional)</label><input id="contact" name="contact" placeholder="Para que podamos contactarte">
- <label class="consent"><input type="checkbox" id="consent"> Acepto que la universidad utilice estos datos para responder a mi consulta.</label>
- <button class="btn primary" type="submit">Preparar mi solicitud</button>
- <p class="note" id="leadNotice">Prototipo: este formulario todavía no envía ni guarda datos. Antes de la feria se debe conectar con el formulario oficial de UdeMM o con un sistema autorizado de captación.</p>
+ <label for="name">Nombre y apellido *</label><input id="name" name="nombre" autocomplete="name" placeholder="¿Cómo te llamás?" required>
+ <label for="email">Correo electrónico *</label><input id="email" name="email" type="email" autocomplete="email" placeholder="nombre@correo.com" required>
+ <label for="phone">Teléfono o WhatsApp *</label><input id="phone" name="telefono" type="tel" autocomplete="tel" placeholder="Código de área + número" required>
+ <label for="interest">¿Qué carrera te interesa? *</label><select id="interest" name="carrera" required><option value="">Elegí una carrera</option></select>
+ <label class="consent"><input type="checkbox" id="consent" required> Autorizo a la UdeMM a utilizar estos datos para contactarme y enviarme información sobre carreras y propuestas académicas. *</label>
+ <button class="btn primary" id="leadSubmit" type="submit">Quiero recibir información →</button>
+ <p class="note" id="leadNotice">Tus datos se utilizarán para responder a tu interés en la oferta académica de UdeMM. Podés consultar la información institucional sobre privacidad antes de enviar el formulario.</p>
  </form></div>
  <button class="btn secondary" onclick="restart()">Jugar otra vez</button>
 </section>
@@ -173,7 +174,37 @@ function renderCareerCatalog(){
  Object.entries(careerCatalog).forEach(([faculty,careers])=>{const group=document.createElement('optgroup');group.label=faculty;careers.forEach(c=>{const opt=document.createElement('option');opt.textContent=c;opt.value=c;group.appendChild(opt)});select.appendChild(group)});
 }
 renderCareerCatalog();
-function submitLead(e){e.preventDefault();if(!document.getElementById('consent').checked){alert('Para preparar la solicitud, primero necesitás aceptar el uso de los datos. También podés omitir este formulario y hablar con el equipo del stand.');return}alert('¡Gracias por tu interés! Esta es una versión de demostración: antes de la feria debemos conectar este formulario con el canal oficial de UdeMM. Por ahora, no se ha enviado ni guardado ningún dato.');}
+// Pegá aquí la URL de la aplicación web de Google Apps Script, que termina en /exec.
+const FORM_ENDPOINT = 'https://script.google.com/macros/s/AKfycbwZyLNlPdIT7kf_wc-ozzWcrEOXl8pZNhDfRq2WBee2WbTJ2OfT7g-JvVa_ieND0OVDWQ/exec';
+async function submitLead(e){
+ e.preventDefault();
+ const form=document.getElementById('leadForm');
+ const btn=document.getElementById('leadSubmit');
+ const notice=document.getElementById('leadNotice');
+ if(!document.getElementById('consent').checked){alert('Para enviar tus datos, primero necesitás autorizar el contacto.');return}
+ if(!FORM_ENDPOINT.startsWith('https://script.google.com/macros/s/') || !FORM_ENDPOINT.endsWith('/exec')){
+  notice.textContent='El formulario todavía no está conectado. No se envió ningún dato. La Universidad debe completar la configuración antes de publicar esta versión.';
+  notice.style.color='#a33'; return;
+ }
+ const data=Object.fromEntries(new FormData(form).entries());
+ data.mision=(missions[missionKey]||{}).name||'';
+ data.puntaje=String(score);
+ const profs={logistica:'Licenciatura en Transportes y Logística Operativa; Ingeniería Industrial; Licenciatura en Administración Naviera; Licenciatura en Gestión Ambiental; Ingeniería en Sistemas',empresa:'Licenciatura en Administración; Licenciatura en Marketing; Licenciatura en Economía; Licenciatura en Relaciones Públicas; Licenciatura en Psicología',pistas:'Abogacía; Licenciatura en Psicología; Ingeniería en Sistemas; Licenciatura en Ciencias de la Comunicación y Escritura Creativa; Contador Público',personas:'Licenciatura en Psicología; Licenciatura en Psicopedagogía; Licenciatura en Gestión de Recursos Humanos; Licenciatura en Relaciones Públicas; Licenciatura en Ciencias de la Comunicación y Escritura Creativa'};
+ data.carreras_sugeridas=profs[missionKey]||'';
+ data.consentimiento='Sí';
+ btn.disabled=true; btn.textContent='Enviando…';
+ try{
+  // Apps Script recibe los campos como formulario; no requiere permisos Google del participante.
+  await fetch(FORM_ENDPOINT,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/x-www-form-urlencoded;charset=UTF-8'},body:new URLSearchParams(data).toString()});
+  form.style.display='none';
+  notice.style.color='';
+  const success=document.createElement('div'); success.className='card'; success.innerHTML='<h2>¡Gracias por tu interés!</h2><p class="muted">Registramos tu solicitud para que el equipo de UdeMM pueda brindarte más información.</p>';
+  form.parentElement.appendChild(success);
+ }catch(err){
+  notice.textContent='No pudimos enviar el formulario. Revisá tu conexión e intentá nuevamente, o acercate al equipo de UdeMM.';
+  btn.disabled=false; btn.textContent='Quiero recibir información →';
+ }
+}
 function restart(){document.getElementById('leadForm').reset();show('home')}
 </script>
 </body>
