@@ -341,14 +341,14 @@
       <button class="btn-action" onclick="cambiarPantalla('screen-missions')">COMENZAR →</button>
     </section>
 
-    <!-- PANTALLA 2: LAS 4 MISIONES -->
+    <!-- PANTALLA 2: LAS MISIONES -->
     <section class="screen" id="screen-missions">
       <button class="btn-back" onclick="cambiarPantalla('screen-welcome')">←</button>
       <h2 class="screen-title">Tu misión</h2>
       <p class="screen-desc">¿Qué tipo de desafío te gustaría resolver hoy?</p>
       
       <!-- MISIÓN 1 -->
-      <div class="mission-card" onclick="cambiarPantalla('screen-m1-q1')">
+      <div class="mission-card" onclick="iniciarMision(1)">
         <div class="mission-info">
           <span class="mission-tag">Misión 1</span>
           <div class="mission-name">Operación en marcha</div>
@@ -358,42 +358,50 @@
       </div>
 
       <!-- MISIÓN 2 -->
-      <div class="mission-card" onclick="alert('Próximamente: Decisión estratégica')">
+      <div class="mission-card" onclick="iniciarMision(2)">
         <div class="mission-info">
           <span class="mission-tag">Misión 2</span>
           <div class="mission-name">Decisión estratégica</div>
-          <div class="mission-desc">Análisis y gestión.</div>
+          <div class="mission-desc">Análisis y gestión empresarial.</div>
         </div>
         <div class="mission-arrow">→</div>
       </div>
     </section>
 
-    <!-- PANTALLA 3: MISIÓN 1 - TRIVIA 1 -->
-    <section class="screen" id="screen-m1-q1">
-      <button class="btn-back" onclick="cambiarPantalla('screen-missions')">← Misiones</button>
+    <!-- PANTALLA 3: JUEGO DE TRIVIA DINÁMICO -->
+    <section class="screen" id="screen-quiz">
+      <button class="btn-back" onclick="cambiarPantalla('screen-missions')">← Abandonar</button>
       
       <div class="mission-header">
-        <span>MISIÓN 1: OPERACIÓN EN MARCHA</span>
-        <span>Pregunta 1 de 1</span>
+        <span id="quiz-mission-title">MISIÓN</span>
+        <span id="quiz-progress">Pregunta 1 de 3</span>
       </div>
 
-      <div class="scenario-card">
-        <strong>Contexto:</strong> Una importante empresa de transporte marítimo necesita coordinar el ingreso y la distribución eficiente de contenedores en el puerto sin generar demoras en la aduana ni costos extras de almacenamiento.
+      <div class="scenario-card" id="quiz-context">
+        <!-- Dinámico -->
       </div>
 
-      <p class="question-text">¿Cuál es el factor clave para optimizar esta cadena de distribución?</p>
+      <p class="question-text" id="quiz-question">
+        <!-- Dinámico -->
+      </p>
 
-      <div class="choices-container">
-        <!-- OPCIÓN A (Incorrecta) -->
-        <button class="choice-box" onclick="evaluarRespuesta(this, false)">
-          <div class="choice-letter">A</div>
-          <div>Aumentar el tamaño de los depósitos portuarios sin planificación previa.</div>
-        </button>
+      <div class="choices-container" id="quiz-options">
+        <!-- Dinámico -->
+      </div>
 
-        <!-- OPCIÓN B (Correcta) -->
-        <button class="choice-box" onclick="evaluarRespuesta(this, true)">
-          <div class="choice-letter">B</div>
-          <div>Planificar de forma sincronizada el transporte intermodal y los tiempos de aduana.</div>
-        </button>
+      <div id="feedback-correct" class="feedback-box correct">
+        <!-- Dinámico -->
+      </div>
+      
+      <div id="feedback-wrong" class="feedback-box wrong">
+        <!-- Dinámico -->
+      </div>
 
-        <!-- OPCIÓN C (Incorrecta) -->
+      <button id="btn-next-question" class="btn-action" style="display: none; margin-top: 15px;" onclick="siguientePregunta()">Siguiente Desafío →</button>
+    </section>
+
+    <!-- PANTALLA 4: MISIÓN CUMPLIDA (RESULTADOS + AFINIDAD) -->
+    <section class="screen" id="screen-success">
+      <div class="success-icon">🏆</div>
+      <h2 class="title-main" style="text-align: center;">Misión<br><span id="success-span">Cumplida</span></h2>
+      <p class="subtitle-main" id="success-subtitle" style="margin-bottom: 20px;">¡Excelente trabajo estratégico!</p>
