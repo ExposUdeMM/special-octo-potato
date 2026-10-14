@@ -61,11 +61,12 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
+    /* Encabezados y Textos */
     .brand-logo {
       display: flex;
       flex-direction: column;
       align-items: center;
-      margin: 40px 0 20px;
+      margin: 20px 0;
     }
 
     .title-main {
@@ -87,17 +88,23 @@
       color: var(--text-muted);
       text-align: center;
       margin-bottom: 30px;
+      line-height: 1.5;
     }
 
-    .card-panel {
-      background: rgba(7, 40, 72, 0.6);
-      border: 1px solid rgba(66, 198, 217, 0.2);
-      backdrop-filter: blur(10px);
-      border-radius: 24px;
-      padding: 20px;
-      margin-bottom: 20px;
+    .screen-title {
+      font-size: 1.6rem;
+      font-weight: 800;
+      margin: 15px 0 5px 0;
     }
 
+    .screen-desc {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      margin-bottom: 25px;
+      line-height: 1.4;
+    }
+
+    /* Botón Principal */
     .btn-action {
       background: var(--blue-bright);
       color: var(--white);
@@ -120,6 +127,77 @@
     .btn-action:active {
       background: #065e92;
     }
+
+    /* Botón Volver */
+    .btn-back {
+      background: none;
+      border: none;
+      color: var(--white);
+      font-size: 1.2rem;
+      cursor: pointer;
+      align-self: flex-start;
+      margin-bottom: 10px;
+    }
+
+    /* Tarjetas de Misiones (Estilo Gráfico Mockup) */
+    .mission-card {
+      background: rgba(11, 56, 100, 0.4);
+      border: 1px solid rgba(66, 198, 217, 0.15);
+      border-radius: 18px;
+      padding: 16px;
+      margin-bottom: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .mission-card:hover {
+      border-color: var(--cyan);
+      background: rgba(11, 56, 100, 0.7);
+    }
+
+    .mission-info {
+      padding-right: 10px;
+    }
+
+    .mission-tag {
+      font-size: 0.7rem;
+      font-weight: 800;
+      color: var(--cyan);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 4px;
+      display: block;
+    }
+
+    .mission-name {
+      font-size: 1.05rem;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .mission-desc {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      line-height: 1.3;
+    }
+
+    .mission-arrow {
+      color: var(--cyan);
+      font-weight: bold;
+      font-size: 1.1rem;
+    }
+
+    .footer-note {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      text-align: center;
+      margin-top: auto;
+      padding-top: 20px;
+      line-height: 1.4;
+    }
   </style>
 </head>
 <body>
@@ -128,18 +206,71 @@
     <!-- PANTALLA 1: BIENVENIDA -->
     <section class="screen active" id="screen-welcome">
       <div class="brand-logo">
-        <!-- Acá irá el logo de UdeMM -->
         <div style="font-weight: 800; font-size: 1.2rem; color: var(--cyan);">UdeMM</div>
       </div>
       
       <h1 class="title-main">MISIÓN<br><span>UdEMM</span></h1>
       <p class="subtitle-main">Elegí tu próximo desafío. Resolvé, aprendé, descubrí qué carreras se conectan con vos.</p>
       
-      <button class="btn-action" onclick="alert('¡Pronto programaremos la siguiente pantalla!')">
+      <!-- Ahora este botón llama a la función cambiarPantalla -->
+      <button class="btn-action" onclick="cambiarPantalla('screen-missions')">
         COMENZAR →
       </button>
     </section>
+
+    <!-- PANTALLA 2: SELECCIÓN DE MISIÓN -->
+    <section class="screen" id="screen-missions">
+      <button class="btn-back" onclick="cambiarPantalla('screen-welcome')">←</button>
+      
+      <h2 class="screen-title">Seleccioná tu misión</h2>
+      <p class="screen-desc">Cada misión te acerca a un mundo de posibilidades. Elegí la que más te impulse.</p>
+      
+      <!-- Misión 1 -->
+      <div class="mission-card" onclick="alert('Iniciando Misión 1: Operaciones Portuarias')">
+        <div class="mission-info">
+          <span class="mission-tag">Misión 1</span>
+          <div class="mission-name">Operaciones Portuarias</div>
+          <div class="mission-desc">Organizá una operación en el puerto y tomá decisiones en tiempo real.</div>
+        </div>
+        <div class="mission-arrow">→</div>
+      </div>
+
+      <!-- Misión 2 -->
+      <div class="mission-card" onclick="alert('Iniciando Misión 2: Gestión y Negocios')">
+        <div class="mission-info">
+          <span class="mission-tag">Misión 2</span>
+          <div class="mission-name">Gestión y Negocios</div>
+          <div class="mission-desc">Analizá una situación empresarial y elegí la mejor estrategia.</div>
+        </div>
+        <div class="mission-arrow">→</div>
+      </div>
+
+      <!-- Misión 3 -->
+      <div class="mission-card" onclick="alert('Iniciando Misión 3: Investigación y Seguridad')">
+        <div class="mission-info">
+          <span class="mission-tag">Misión 3</span>
+          <div class="mission-name">Investigación y Seguridad</div>
+          <div class="mission-desc">Detectá lo que no encaja y resolvé el caso.</div>
+        </div>
+        <div class="mission-arrow">→</div>
+      </div>
+
+      <p class="footer-note">Completá todas las misiones o elegí la que más te interese. ¡Tenés 3 minutos por misión!</p>
+    </section>
   </main>
+
+  <!-- LÓGICA EN JAVASCRIPT -->
+  <script>
+    function cambiarPantalla(pantallaId) {
+      // 1. Ocultar todas las pantallas borrándoles la clase 'active'
+      document.querySelectorAll('.screen').forEach(pantalla => {
+        pantalla.classList.remove('active');
+      });
+      
+      // 2. Mostrar la pantalla seleccionada agregándole 'active'
+      document.getElementById(pantallaId).classList.add('active');
+    }
+  </script>
 
 </body>
 </html>
