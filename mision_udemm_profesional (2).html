@@ -321,7 +321,27 @@
   </style>
 </head>
 <body>
+<script>
+function cambiarPantalla(idPantalla) {
+    // 1. Ocultamos todas las pantallas de la página
+    var pantallas = document.querySelectorAll('section, .screen');
+    pantallas.forEach(function(pantalla) {
+        pantalla.style.display = 'none';
+        pantalla.classList.remove('active');
+    });
 
+    // 2. Buscamos la pantalla a la que queremos ir
+    var pantallaDestino = document.getElementById(idPantalla);
+    
+    // 3. Si existe, la hacemos visible
+    if (pantallaDestino) {
+        pantallaDestino.style.display = 'block'; // o 'flex' según tu diseño
+        pantallaDestino.classList.add('active');
+    } else {
+        console.error("No se encontró ninguna pantalla con el id: " + idPantalla);
+    }
+}
+</script>
   <main>
     <!-- PANTALLA 1: BIENVENIDA -->
     <section class="screen active" id="screen-welcome">
